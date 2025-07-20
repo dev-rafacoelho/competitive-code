@@ -33,3 +33,20 @@ function normalizarTransacoes(transacao){
 }
 
 console.log(normalizarTransacoes(transacoesFinanceiras));
+
+function calcularSaldoAcumulado(transacoesNormalizadas) {
+    let saldoAtual = 0;
+
+    return transacoesNormalizadas.map(function(item) {
+        if (item.tipo === 'receita') {
+            saldoAtual = saldoAtual + item.valorAbsoluto;
+        } else { 
+            saldoAtual = saldoAtual - item.valorAbsoluto;
+        }
+        return {
+            ...item,
+            saldoParcial: saldoAtual
+        };
+    });
+}
+console.log(calcularSaldoAcumulado(normalizarTransacoes(transacoesFinanceiras)));
